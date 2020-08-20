@@ -117,7 +117,7 @@ public class Card {
                 "Card {id = %s, word = %s, category = %s, transcription = %s, translation = %s, phrase = %s, translatePhrase = %s}",
                 this.getId(),
                 this.getWord(),
-                this.getCategory().toString(),
+                String.valueOf(this.getCategory()),
                 this.getTranscription(),
                 this.getTranslation(),
                 this.getPhrase(),
