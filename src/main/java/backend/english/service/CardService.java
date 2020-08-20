@@ -2,7 +2,11 @@ package backend.english.service;
 
 import backend.english.domain.Card;
 import backend.english.repository.CardRepository;
+import backend.english.util.SearchParams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +41,14 @@ public class CardService {
 
     public Card updateCard(Card card) {
         return this.cardRepository.save(card);
+    }
+
+    public Page<Card> findCardByParams(SearchParams searchParams) {
+        String sortColumn = "word";
+        PageRequest pageRequest = PageRequest.of(
+                searchParams.getPageNumber(),
+                searchParams.getPageLimit(),
+                Sort.by(Sort.Direction.ASC, sortColumn));
+        return this.cardRepository.findCardByParams(searchParams.getCategory(), pageRequest);
     }
 }
