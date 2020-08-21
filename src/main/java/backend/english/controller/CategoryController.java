@@ -2,6 +2,8 @@ package backend.english.controller;
 
 import backend.english.domain.Category;
 import backend.english.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -10,12 +12,13 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("category")
 public class CategoryController {
+
+    private final Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     private final CategoryService categoryService;
 
@@ -31,20 +34,23 @@ public class CategoryController {
 
     @RequestMapping("/add")
     public ResponseEntity<Category> addCategory(@RequestBody @NonNull Category category) {
+        logger.info(String.format("Input arguments: %s", category));
         return ResponseEntity.ok(this.categoryService.saveCategory(category));
     }
 
     @RequestMapping("/update")
     public ResponseEntity<Category> updateCategory(@RequestBody @NonNull Category category) {
+        logger.info(String.format("Input arguments: %s", category));
         return ResponseEntity.ok(this.categoryService.updateCategory(category));
     }
 
     @RequestMapping("/delete/{id}")
     public ResponseEntity deleteCategory(@PathVariable UUID id) {
+        logger.info(String.format("Input arguments: %s", id));
         try {
             this.categoryService.deleteCategory(id);
         } catch (EmptyResultDataAccessException e) {
-            e.printStackTrace();
+            logger.error(String.format("EmptyResultDataAccessException: %s", e));
         }
         return new ResponseEntity(HttpStatus.OK);
     }
