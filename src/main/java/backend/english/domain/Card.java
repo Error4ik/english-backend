@@ -24,8 +24,6 @@ public class Card {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    private String transcription;
-
     private String translation;
 
     private String phrase;
@@ -60,14 +58,6 @@ public class Card {
         this.category = category;
     }
 
-    public String getTranscription() {
-        return transcription;
-    }
-
-    public void setTranscription(String transcription) {
-        this.transcription = transcription;
-    }
-
     public String getTranslation() {
         return translation;
     }
@@ -100,7 +90,6 @@ public class Card {
         return id.equals(card.id) &&
                 word.equals(card.word) &&
                 category.equals(card.category) &&
-                transcription.equals(card.transcription) &&
                 translation.equals(card.translation) &&
                 phrase.equals(card.phrase) &&
                 translatePhrase.equals(card.translatePhrase);
@@ -108,17 +97,16 @@ public class Card {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, word, category, transcription, translation, phrase, translatePhrase);
+        return Objects.hash(id, word, category, translation, phrase, translatePhrase);
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Card {id = %s, word = %s, category = %s, transcription = %s, translation = %s, phrase = %s, translatePhrase = %s}",
+                "Card {id = %s, word = %s, category = %s, translation = %s, phrase = %s, translatePhrase = %s}",
                 this.getId(),
                 this.getWord(),
                 String.valueOf(this.getCategory()),
-                this.getTranscription(),
                 this.getTranslation(),
                 this.getPhrase(),
                 this.getTranslatePhrase());
