@@ -4,6 +4,7 @@ import backend.english.domain.Category;
 import backend.english.repository.CategoryRepository;
 import com.google.common.collect.Lists;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -22,7 +23,7 @@ class CategoryServiceTest {
 
     private final Category category = new Category();
 
-    @Before
+    @BeforeEach
     public void init() {
         category.setId(uuid);
         category.setName("test");
