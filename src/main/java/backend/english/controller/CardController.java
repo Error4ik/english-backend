@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,18 +26,18 @@ public class CardController {
         this.cardService = cardService;
     }
 
-    @RequestMapping("/cards")
+    @GetMapping("/cards")
     public ResponseEntity<List<Card>> getCards() {
         return ResponseEntity.ok(this.cardService.getCards());
     }
 
-    @RequestMapping("/find-cards-by-parameters")
+    @PostMapping("/find-cards-by-parameters")
     public ResponseEntity<Page<Card>> findCardByParameters(@RequestBody @NonNull SearchParams searchParams) {
         logger.info(String.format("Input arguments: %s", searchParams));
         return ResponseEntity.ok(this.cardService.findCardByParams(searchParams));
     }
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity<Card> addCard(@RequestBody @NonNull Card card) {
         logger.info(String.format("Input arguments: %s", card));
         Card c = this.cardService.saveCard(card);

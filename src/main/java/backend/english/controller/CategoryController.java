@@ -27,24 +27,24 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping("/categories")
+    @GetMapping("/categories")
     public ResponseEntity<List<Category>> getCategories() {
         return ResponseEntity.ok(this.categoryService.getCategories());
     }
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public ResponseEntity<Category> addCategory(@RequestBody @NonNull Category category) {
         logger.info(String.format("Input arguments: %s", category));
         return ResponseEntity.ok(this.categoryService.saveCategory(category));
     }
 
-    @RequestMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<Category> updateCategory(@RequestBody @NonNull Category category) {
         logger.info(String.format("Input arguments: %s", category));
         return ResponseEntity.ok(this.categoryService.updateCategory(category));
     }
 
-    @RequestMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteCategory(@PathVariable UUID id) {
         logger.info(String.format("Input arguments: %s", id));
         try {
