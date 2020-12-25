@@ -1,5 +1,6 @@
 package backend.english.util;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class SearchParams {
@@ -32,6 +33,21 @@ public class SearchParams {
 
     public void setPageLimit(Integer pageLimit) {
         this.pageLimit = pageLimit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchParams that = (SearchParams) o;
+        return Objects.equals(category, that.category) &&
+                Objects.equals(pageNumber, that.pageNumber) &&
+                Objects.equals(pageLimit, that.pageLimit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, pageNumber, pageLimit);
     }
 
     @Override
